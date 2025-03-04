@@ -14,9 +14,20 @@ const messages = [
     }
 ];
 
+router.get('/new',(req,res)=>{
+    res.render('form');
+})
+
+router.post('/new',(req,res)=>{
+    messages.push({text:req.body.message, user:req.body.author, added: new Date()});
+    res.redirect('/');
+})
+
 router.get('/', (req, res) => {
     res.render('index', { messages: messages });
 });
+
+
 
 module.exports = router;
   
