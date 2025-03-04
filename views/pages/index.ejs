@@ -6,6 +6,11 @@
     <title>Board</title>
 </head>
 <body>
-    hi
+    <% messages.forEach((message) =>{%>
+    <div>
+        <p><strong><%= message.user %>:</strong> <%= message.text %></p>
+        <p><%= message.added.toDateString() %></p>
+    </div>
+    <% })%>
 </body>
 </html>
