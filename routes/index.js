@@ -23,6 +23,12 @@ router.post('/new',(req,res)=>{
     res.redirect('/');
 })
 
+router.get('/message/:id/details',(req,res)=>{
+    const id = req.params.id;
+    res.render('details',{message:messages[id]})
+})
+
+
 router.get('/', (req, res) => {
     res.render('index', { messages: messages });
 });
