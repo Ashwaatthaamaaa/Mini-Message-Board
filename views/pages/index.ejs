@@ -10,7 +10,7 @@
     <div>
         <p><strong><%= message.user %>:</strong> <%= message.text %></p>
         <p><%= message.added.toDateString() %></p>
-        <a href="/message/<%= index %>/details">Details</a>
+        <a href="/message/<%= message.id %>/details">Details</a>
     </div>
     <% })%>
     <h2><a href="/new">ADD NEW Message</a></h2>
