@@ -6,11 +6,11 @@
     <title>Board</title>
 </head>
 <body>
-    <% messages.forEach((message) =>{%>
+    <% messages.forEach((message,index) =>{%>
     <div>
         <p><strong><%= message.user %>:</strong> <%= message.text %></p>
-        <a href=""
         <p><%= message.added.toDateString() %></p>
+        <a href="/message/<%= index %>/details">Details</a>
     </div>
     <% })%>
     <h2><a href="/new">ADD NEW Message</a></h2>
