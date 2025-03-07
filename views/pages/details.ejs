@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+</head>
+<body>
+    <h1>Details</h1>
+    <p>"Posted by: "<%= message.user %></p>
+    <p>"Posted on: "<%= message.added.toDateString() %></p>
+    <p><%= message.text %></p>
+    <a href="/">Back to Board</a>
+</body>
+</html>
