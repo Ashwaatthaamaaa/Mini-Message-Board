@@ -9,7 +9,7 @@
     <% messages.forEach((message,index) =>{%>
     <div>
         <p><strong><%= message.user %>:</strong> <%= message.text %></p>
-        <p><%= message.added.toDateString() %></p>
+        <!-- <p><%= message.added.toDateString() %></p> -->
         <a href="/message/<%= message.id %>/details">Details</a>
     </div>
     <% })%>
