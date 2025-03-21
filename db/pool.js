@@ -1,5 +1,7 @@
-import { Connection, pool } from 'pg';
+const { Pool } = require('pg');
 
-module.exports = new pool({
-    connectionString: "postgresql://lunge:291152@localhost:5432/top_users",
-})
+const pool = new Pool({
+    connectionString: "postgresql://lunge:291152@localhost:5432/message"
+});
+
+module.exports = pool;
