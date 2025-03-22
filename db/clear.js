@@ -2,7 +2,7 @@
 const pool = require('./pool');
 
 const query = `
-    DELETE FROM messages;
+TRUNCATE TABLE messages RESTART IDENTITY;
 `;
 
 async function main() {
