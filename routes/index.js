@@ -1,4 +1,4 @@
-const { addMessage } = require('../db/queries');
+const { addMessage ,getDetails} = require('../db/queries');
 
 const express = require('express');
 const router = express.Router();
@@ -26,7 +26,8 @@ router.post('/new', async (req,res) => {
 
 router.get('/message/:id/details',(req,res)=>{
     const id = req.params.id;
-    res.render('details',{message:messages.find(msg => msg.id == id)});
+    let {message,Date} = getDetails(id)
+    res.render('details',{message:message,date:Date});
 })
 
 
