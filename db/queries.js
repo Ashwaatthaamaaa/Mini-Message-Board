@@ -13,6 +13,26 @@ async function addMessage(message, username) {
     }
 }
 
+
+async function getDetails(id) {
+
+    if(!id){
+        throw new Error('Id is required');
+    }
+
+    try{
+        const message = (await pool.query('SELECT text from messages WHERE id=$1',[id])).rows;
+        const Date = await pool.query('SELECT  from messages WHERE id=$1',[id]);
+        console.log(message);
+
+    }catch(err){
+        console.error('error fetching',err);
+        throw err;
+    }
+    
+}
+
 module.exports = {
-    addMessage
+    addMessage,
+    getDetails
 };
