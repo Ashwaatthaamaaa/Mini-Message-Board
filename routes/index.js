@@ -24,10 +24,14 @@ router.post('/new', async (req,res) => {
     }
 })
 
-router.get('/message/:id/details',(req,res)=>{
+router.get('/message/:id/details',async (req,res)=>{
     const id = req.params.id;
-    let {message,Date} = getDetails(id)
-    res.render('details',{message:message,date:Date});
+    let details = await getDetails(id);
+    if (!details) {
+        return res.status(404).send('Message not found');
+    }
+    console.log(details.text);
+    res.render('details',{message:details.text,date:details.added});
 })
 
 
