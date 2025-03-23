@@ -6,7 +6,7 @@ async function addMessage(message, username) {
     }
 
     try {
-        await pool.query('INSERT INTO messages(text, "user") VALUES($1, $2)', [message, username]);
+        await pool.query('INSERT INTO messages(text, username) VALUES($1, $2)', [message, username]);
     } catch (err) {
         console.error('error populating', err);
         throw err;
@@ -15,24 +15,33 @@ async function addMessage(message, username) {
 
 
 async function getDetails(id) {
-
-    if(!id){
+    if (!id) {
         throw new Error('Id is required');
     }
 
-    try{
-        const details = (await pool.query('SELECT text,added from messages WHERE id=$1',[id])).rows[0];
-        console.log(details);
+    try {
+        const details = (await pool.query('SELECT username, text, added FROM messages WHERE id = $1', [id])).rows[0];
         return details;
-
-    }catch(err){
-        console.error('error fetching',err);
+    } catch (err) {
+        console.error('Error fetching', err);
         throw err;
     }
-    
 }
+
+
+async function getAll() {
+    try{
+        const messages = await pool.query('Select id,text,username FROM messages');
+        return messages.rows;
+    }
+    catch(err){
+        console.error('couldn not fetch',err)
+    }
+}
+
 
 module.exports = {
     addMessage,
-    getDetails
+    getDetails,
+    getAll
 };
