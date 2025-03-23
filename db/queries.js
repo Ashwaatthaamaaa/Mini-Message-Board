@@ -21,9 +21,9 @@ async function getDetails(id) {
     }
 
     try{
-        const message = (await pool.query('SELECT text from messages WHERE id=$1',[id])).rows;
-        const Date = await pool.query('SELECT  from messages WHERE id=$1',[id]);
-        console.log(message);
+        const details = (await pool.query('SELECT text,added from messages WHERE id=$1',[id])).rows[0];
+        console.log(details);
+        return details;
 
     }catch(err){
         console.error('error fetching',err);
