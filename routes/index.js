@@ -1,22 +1,22 @@
-const { addMessage ,getDetails} = require('../db/queries');
+const { addMessage ,getDetails,getAll} = require('../db/queries');
 
 const express = require('express');
 const router = express.Router();
 
-const messages = [
-    { id: 0, text: "Hi there!", user: "Amando", added: new Date() },
-    { id: 1, text: "Hello World!", user: "Charles", added: new Date() }
-];
+// const messages = [
+//     { id: 0, text: "Hi there!", user: "Amando", added: new Date() },
+//     { id: 1, text: "Hello World!", user: "Charles", added: new Date() }
+// ];
 
 router.get('/new',(req,res)=>{
     res.render('form');
 })
 
 router.post('/new', async (req,res) => {
-    const newMessage = { id: messages.length, text:req.body.message, user:req.body.author, added: new Date() };
-    messages.push(newMessage);
     try {
-        await addMessage(req.body.message, req.body.author);
+        const message = req.body.message;
+        const author = req.body.author;
+        await addMessage(message, author);
         res.redirect('/');
     } catch (err) {
         console.error('Failed to add message:', err);
@@ -24,18 +24,25 @@ router.post('/new', async (req,res) => {
     }
 })
 
-router.get('/message/:id/details',async (req,res)=>{
-    const id = req.params.id;
-    let details = await getDetails(id);
-    if (!details) {
-        return res.status(404).send('Message not found');
+router.get('/message/:id/details', async (req, res) => {
+    try {
+        const id = parseInt(req.params.id, 10); // Convert ID to an integer
+        const details = await getDetails(id); // Use the ID directly
+        
+        if (!details) {
+            return res.status(404).send('Message not found');
+        }
+        
+        res.render('details', { user:details.username,message: details.text, date: details.added });
+    } catch (err) {
+        console.error('Error fetching details:', err);
+        res.status(500).send('Error fetching message details');
     }
-    console.log(details.text);
-    res.render('details',{message:details.text,date:details.added});
-})
+});
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    const messages = await getAll();
     res.render('index', { messages: messages });
 });
 
