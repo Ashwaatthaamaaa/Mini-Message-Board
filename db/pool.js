@@ -1,7 +1,10 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-    connectionString: "postgresql://lunge:291152@localhost:5432/message"
+    connectionString: "postgresql://lunge:cmqgDT7Y8fbjrF9tojUl1fX0dGsUfNa6@dpg-cvfgillsvqrc73d1dif0-a.singapore-postgres.render.com/message_pumz",
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 module.exports = pool;
