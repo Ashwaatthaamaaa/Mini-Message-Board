@@ -1,9 +1,14 @@
 const { Pool } = require('pg');
+require('dotenv').config(); // Load environment variables from .env file
+
+const connectionString = process.env.NODE_ENV === 'production'
+    ? process.env.DATABASE_URL_PROD
+    : process.env.DATABASE_URL_DEV;
 
 const pool = new Pool({
-    connectionString: "postgresql://lunge:cmqgDT7Y8fbjrF9tojUl1fX0dGsUfNa6@dpg-cvfgillsvqrc73d1dif0-a/message_pumz",
+    connectionString: connectionString,
     ssl: {
-        rejectUnauthorized: false
+        rejectUnauthorized: false // Only if using a self-signed certificate
     }
 });
 
