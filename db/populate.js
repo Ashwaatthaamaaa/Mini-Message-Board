@@ -13,6 +13,8 @@ const query = `
     VALUES
     ('Hi there!', 'Amando'),
     ('Hello World!', 'Charles');
+
+    
 `;
 
 async function main() {
